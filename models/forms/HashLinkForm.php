@@ -21,4 +21,11 @@ class HashLinkForm extends Model
         $validator = new UrlValidator();
         return $validator->validate($this->link);
     }
+
+    public function attributeLabels()
+    {
+        return [
+            "link" => "Ссылка"
+        ];
+    }
 }
