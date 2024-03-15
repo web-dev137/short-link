@@ -7,7 +7,7 @@ use yii\validators\UrlValidator;
 
 class HashLinkForm extends Model
 {
-    public $link;
+    public ?string $link=null;
     public function rules(): array
     {
         return [
