@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * @property-read $id
  * @property string $link
@@ -25,7 +27,10 @@ class HashLink extends \yii\db\ActiveRecord
 
     public function generateShortLink():string
     {
-        $model = self::findOne(["link"=>$this->link]);
+        $model = Yii::$app->cache->getOrSet('link',function () {
+            return self::findOne(["link"=>$this->link]);
+        });
+
         if(!$model) {
             $model = new HashLink(["link"=>$this->link]);
             $model->hash = substr(sha1(md5($this->link)), 0, 12);
